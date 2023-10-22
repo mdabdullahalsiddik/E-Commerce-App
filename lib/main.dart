@@ -1,4 +1,4 @@
-import 'package:ecommace/pages/splash_page.dart';
+import 'package:ecommace/pages/Splash%20Page/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());

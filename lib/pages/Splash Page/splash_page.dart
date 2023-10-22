@@ -1,4 +1,4 @@
-import 'package:ecommace/pages/welcomepage.dart';
+import 'package:ecommace/pages/Welcome%20Page/welcomepage.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:flutter/material.dart';
 

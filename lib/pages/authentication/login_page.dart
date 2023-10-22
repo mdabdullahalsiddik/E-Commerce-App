@@ -1,5 +1,5 @@
+import 'package:ecommace/pages/Buttom%20Navigator%20Bar/bottom_navigator_bar_page%20.dart';
 import 'package:ecommace/pages/authentication/register_page.dart';
-import 'package:ecommace/pages/home_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
@@ -79,7 +79,8 @@ class LoginPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomePage(),
+                            builder: (context) =>
+                                const ButtomNavigatorBarPage(),
                           ));
                     },
                     color: AllColors.primarycolor,
