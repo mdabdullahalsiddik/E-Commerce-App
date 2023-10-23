@@ -28,17 +28,19 @@ class WelcomePage extends StatelessWidget {
                     "Discover Your \nDream Job here",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: AllColors.primarycolor,
-                        fontSize: 35,
-                        fontWeight: FontWeight.w600),
+                      color: AllColors.primarycolor,
+                      fontSize: 35,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   Text(
                     "Explore all the existing job roles based on your\ninterest and study major",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: AllColors.blackColor.withOpacity(.5),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400),
+                      color: Colors.black.withOpacity(.5),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ],
               ),
@@ -50,10 +52,11 @@ class WelcomePage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginPage(),
-                              ));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                          );
                         },
                         child: SizedBox(
                           height: 50,
@@ -70,9 +73,10 @@ class WelcomePage extends StatelessWidget {
                                 "login",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
@@ -81,10 +85,11 @@ class WelcomePage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const RegisterPage(),
-                              ));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterPage(),
+                            ),
+                          );
                         },
                         child: const SizedBox(
                           height: 50,
@@ -96,9 +101,10 @@ class WelcomePage extends StatelessWidget {
                                 "Register",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),

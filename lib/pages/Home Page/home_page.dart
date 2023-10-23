@@ -16,6 +16,46 @@ class _HomePageState extends State<HomePage> {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqA9kUlLN9e3vbKHZO45S0b33fSx5b38-Xcg&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHqnPMkvAKCzZ7kB4bRRw2nbksPDyjfmSnWw&usqp=CAU"
   ];
+  List<Map<String, String>> elementIcon = [
+    {
+      "icon": "assets/images/watch.png",
+    },
+    {
+      "icon": "assets/images/tshart.png",
+    },
+    {
+      "icon": "assets/images/bug.png",
+    },
+    {
+      "icon": "assets/images/watch.png",
+    },
+    {
+      "icon": "assets/images/tshart.png",
+    },
+    {
+      "icon": "assets/images/bug.png",
+    }
+  ];
+  List<Map<String, String>> item = [
+    {
+      "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAQvxC4sZAzUkZZcFIqqen7W_ncU3UI0ge8Q&usqp=CAU",
+      "title": "Realmi Watch",
+      "price": "50",
+    },
+    {
+      "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwcIeklz7uGblVW_bHQT_A7tADDd-k89rw_A&usqp=CAU",
+      "title": "Realmi Digital",
+      "price": "80",
+    },
+    {
+      "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaqrzpmzjR_dVpPE4Ms31nQBcpN7vO5SL86A&usqp=CAU",
+      "title": "Appale",
+      "price": "150",
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +66,12 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search_rounded,
-                  color: Colors.black,
-                ))
+              onPressed: () {},
+              icon: const Icon(
+                Icons.search_rounded,
+                color: Colors.black,
+              ),
+            )
           ]),
       body: Center(
         child: Padding(
@@ -50,9 +91,10 @@ class _HomePageState extends State<HomePage> {
                           "Hello Fola ",
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600),
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         Icon(
                           Icons.waving_hand_outlined,
@@ -64,9 +106,10 @@ class _HomePageState extends State<HomePage> {
                       "Let’s start shopping!",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600),
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
@@ -83,7 +126,9 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: DecorationImage(
-                            image: NetworkImage(bannerImage[index]),
+                            image: NetworkImage(
+                              bannerImage[index],
+                            ),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -106,17 +151,19 @@ class _HomePageState extends State<HomePage> {
                       "Top Categories",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     Text(
                       "See All",
                       textAlign: TextAlign.end,
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
@@ -132,20 +179,22 @@ class _HomePageState extends State<HomePage> {
                         height: 62.54545593261719,
                         child: ListView.builder(
                           shrinkWrap: true,
+                          primary: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: 5,
+                          itemCount: elementIcon.length,
                           itemBuilder: (context, index) {
                             return SizedBox(
-                                width: MediaQuery.of(context).size.width / 4,
-                                child: const Card(
-                                  elevation: 0,
-                                  color: Color(0xFFf1f1f1),
-                                  child: Icon(
-                                    Icons.tv_sharp,
-                                    weight: 21,
-                                    color: Color(0xFF919191),
+                              width: 64,
+                              child: Container(
+                                margin: const EdgeInsets.all(5),
+                                color: const Color(0xFFD8D3D3).withOpacity(.5),
+                                child: Center(
+                                  child: Image.asset(
+                                    elementIcon[index]["icon"]!,
                                   ),
-                                ));
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -157,92 +206,75 @@ class _HomePageState extends State<HomePage> {
                 ),
                 GridView.builder(
                   shrinkWrap: true,
-                  itemCount: 5,
+                  primary: true,
+                  itemCount: item.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
+                    crossAxisCount: 2,
+                    childAspectRatio: .7,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
+                  ),
                   itemBuilder: (context, index) {
-                    return Card(
-                      color: const Color(0xfff8f8f8),
-                      child: Column(
-                   
-
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
+                    return Container(
+                      color: const Color(0xFFD8D3D3).withOpacity(.5),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  child: const Icon(
                                     Icons.favorite_border_sharp,
-                                    size: 12,
-                                  ))
-                            ],
-                          ),
-                          Container(
-                            height: 70,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/welcome_image.png"),
-                                fit: BoxFit.fill,
+                                    size: 14,
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              height: 130,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    item[index]["image"] ?? "",
+                                  ),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Apple Watch - series 6",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              item[index]["title"] ?? "",
+                              textAlign: TextAlign.start,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ],
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.attach_money,
-                                    size: 12,
-                                  ),
-                                  Text(
-                                    "45,000",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.23,
-                                        fontWeight: FontWeight.w800),
-                                  ),
-                                ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "\$${item[index]["price"] ?? ""}",
+                              textAlign: TextAlign.start,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 12.23,
+                                fontWeight: FontWeight.w800,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.attach_money,
-                                    size: 10,
-                                    color: Color(0xFFAFAFAF),
-                                  ),
-                                  Text(
-                                    "55,000",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                        color: Color(0xFFAFAFAF),
-                                        fontSize: 10.00,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

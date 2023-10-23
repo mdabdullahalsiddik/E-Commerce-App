@@ -13,14 +13,12 @@ PreferredSizeWidget? costomAppbar({
     automaticallyImplyLeading: false,
     leading: InkWell(
       onTap: onTap,
-      child: leading == null
-          ? const Icon(
+      child: leading ?? const Icon(
               Icons.arrow_back,
               color: Colors.black,
-            )
-          : leading,
+            ),
     ),
-    title: title == null ? null : title,
+    title: title,
     actions: actions,
   );
 }
