@@ -1,7 +1,9 @@
+// ignore_for_file: file_names
+
+import 'package:flutter/material.dart';
 import 'package:ecommace/pages/Favorite%20Page/favorite_page.dart';
 import 'package:ecommace/pages/Home%20Page/home_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
-import 'package:flutter/material.dart';
 
 class ButtomNavigatorBarPage extends StatefulWidget {
   const ButtomNavigatorBarPage({super.key});
@@ -15,8 +17,8 @@ class _ButtomNavigatorBarPageState extends State<ButtomNavigatorBarPage> {
 
   List<Widget> pages = [
     const HomePage(),
-    const FavoritePage(),
-    const FavoritePage(),
+    const HomePage(),
+    const HomePage(),
     const FavoritePage(),
   ];
 
