@@ -1,10 +1,14 @@
+
+
+
 import 'package:ecommace/pages/Buttom%20Navigator%20Bar%20Page/bottom_navigator_bar_page%20.dart';
-import 'package:ecommace/pages/authentication/register_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
-import 'package:ecommace/widgets/costom_textfield.dart';
+
+import '../../widgets/costom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -110,9 +114,10 @@ class _LoginPageState extends State<LoginPage> {
                             "Forgot your password?",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: AllColors.primarycolor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,),
+                              color: AllColors.primarycolor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         )
                       ],

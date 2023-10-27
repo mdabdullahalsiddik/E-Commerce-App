@@ -16,7 +16,7 @@ class _RegisterPageState extends State<RegisterPage> {
   var formkey = GlobalKey<FormState>();
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confamePasswordController = TextEditingController();
+  TextEditingController confirmpasswordController = TextEditingController();
   bool passwordValidator = false;
   bool confampasswordValidator = false;
   @override
@@ -105,7 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 15,
                     ),
                     CostomTextField(
-                      controller: confamePasswordController,
+                      controller: confirmpasswordController,
                       hintText: "Confirm Password",
                       validator: (valueKey) {
                         if (valueKey!.isEmpty) {

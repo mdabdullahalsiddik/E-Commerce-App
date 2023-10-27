@@ -40,19 +40,19 @@ class _HomePageState extends State<HomePage> {
     {
       "image":
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAQvxC4sZAzUkZZcFIqqen7W_ncU3UI0ge8Q&usqp=CAU",
-      "title": "Realmi Watch",
+      "title": "Realms Watch",
       "price": "50",
     },
     {
       "image":
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwcIeklz7uGblVW_bHQT_A7tADDd-k89rw_A&usqp=CAU",
-      "title": "Realmi Digital",
+      "title": "Realm Digital",
       "price": "80",
     },
     {
       "image":
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaqrzpmzjR_dVpPE4Ms31nQBcpN7vO5SL86A&usqp=CAU",
-      "title": "Appale",
+      "title": "Apple",
       "price": "150",
     },
   ];
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "Hello Fola ",
+                          "Hello Folk ",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             color: Colors.black,
