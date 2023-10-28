@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommace/pages/Product%20Details%20Page/product_details_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -60,19 +61,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: costomAppbar(
-          leading: const Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search_rounded,
-                color: Colors.black,
-              ),
-            )
-          ]),
+        leading: const Icon(
+          Icons.menu,
+          color: Colors.black,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.search_rounded,
+              color: Colors.black,
+            ),
+          )
+        ],
+        context: context,
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -179,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                         height: 62.54545593261719,
                         child: ListView.builder(
                           shrinkWrap: true,
-                          primary: true,
+                          primary: false,
                           scrollDirection: Axis.horizontal,
                           itemCount: elementIcon.length,
                           itemBuilder: (context, index) {
@@ -206,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 GridView.builder(
                   shrinkWrap: true,
-                  primary: true,
+                  primary: false,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: item.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -216,65 +219,76 @@ class _HomePageState extends State<HomePage> {
                     crossAxisSpacing: 5,
                   ),
                   itemBuilder: (context, index) {
-                    return Container(
-                      color: const Color(0xFFD8D3D3).withOpacity(.5),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: const Icon(
-                                    Icons.favorite_border_sharp,
-                                    size: 14,
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetailsPage(
+                                data: item[index],
+                              ),
+                            ));
+                      },
+                      child: Container(
+                        color: const Color(0xFFD8D3D3).withOpacity(.5),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: () {},
+                                    child: const Icon(
+                                      Icons.favorite_border_sharp,
+                                      size: 14,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                height: 130,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      item[index]["image"] ?? "",
+                                    ),
+                                    fit: BoxFit.fill,
                                   ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Container(
-                              height: 130,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    item[index]["image"] ?? "",
-                                  ),
-                                  fit: BoxFit.fill,
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              item[index]["title"] ?? "",
-                              textAlign: TextAlign.start,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
+                              const SizedBox(
+                                height: 10,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "\$${item[index]["price"] ?? ""}",
-                              textAlign: TextAlign.start,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 12.23,
-                                fontWeight: FontWeight.w800,
+                              Text(
+                                item[index]["title"] ?? "",
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "\$${item[index]["price"] ?? ""}",
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12.23,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );

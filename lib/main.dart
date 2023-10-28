@@ -1,5 +1,5 @@
+import 'package:ecommace/pages/Splash%20Page/splash_page.dart';
 import 'package:flutter/material.dart';
-import 'pages/Splash Page/splash_page.dart';
 
 void main() => runApp(const MyApp());
 

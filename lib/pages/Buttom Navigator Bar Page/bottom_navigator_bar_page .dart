@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:ecommace/pages/Cart%20Page/cart_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommace/pages/Favorite%20Page/favorite_page.dart';
 import 'package:ecommace/pages/Home%20Page/home_page.dart';
@@ -17,7 +18,7 @@ class _ButtomNavigatorBarPageState extends State<ButtomNavigatorBarPage> {
 
   List<Widget> pages = [
     const HomePage(),
-    const HomePage(),
+    const CartPage(),
     const HomePage(),
     const FavoritePage(),
   ];
