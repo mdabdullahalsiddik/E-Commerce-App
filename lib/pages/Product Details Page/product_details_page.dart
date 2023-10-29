@@ -1,4 +1,3 @@
-
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
@@ -18,11 +17,14 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   List<String> sizeData = [
+    "10",
+    "20",
     "30",
     "32",
     "36",
     "40",
   ];
+  int seletIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +49,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   child: Image.network(
                     widget.data!["image"],
                     fit: BoxFit.cover,
+                    height: MediaQuery.of(context).size.height * .3,
                   ),
                 ),
               ),
@@ -121,7 +124,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   color: Colors.black.withOpacity(.5),
-                  fontSize: 24,
+                  fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
               ),
@@ -132,7 +135,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * .2,
+          height: MediaQuery.of(context).size.height * .25,
           child: Column(
             children: [
               SingleChildScrollView(
@@ -150,12 +153,34 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         itemBuilder: (context, index) {
                           return SizedBox(
                             width: 64,
-                            child: Container(
-                              margin: const EdgeInsets.all(5),
-                              color: const Color(0xFFD8D3D3).withOpacity(.5),
-                              child: Center(
-                                child: Text(
-                                  sizeData[index],
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  seletIndex = index;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: seletIndex == index
+                                        ? AllColors.primarycolor
+                                        : const Color(0xFFD8D3D3)
+                                            .withOpacity(.5),
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                      color: seletIndex == index
+                                          ? Colors.transparent
+                                          : Colors.black,
+                                    )),
+                                margin: const EdgeInsets.all(5),
+                                child: Center(
+                                  child: Text(
+                                    sizeData[index],
+                                    style: TextStyle(
+                                      color: seletIndex == index
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
