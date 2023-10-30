@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "181744374672",
+    "project_id": "lws-e-commerce",
+    "storage_bucket": "lws-e-commerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181744374672:android:79fc1beb51b1aa0d7d5915",
+        "android_client_info": {
+          "package_name": "com.lws.ecommerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfeDALY4AJ2RXiWDueI_jTnTDLaaXweSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommace/pages/Home%20Page/home_page.dart';
 import 'package:ecommace/pages/authentication/login_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
 import 'package:ecommace/widgets/costom_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -14,16 +17,20 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   var formkey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
   bool passwordValidator = false;
   bool confampasswordValidator = false;
+  var auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: costomAppbar(
-         context: context,
+        context: context,
       ),
       body: Center(
         child: Padding(
@@ -63,17 +70,43 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Column(
                     children: [
                       CostomTextField(
-                        controller: mailController,
-                        hintText: "Email",
+                        controller: nameController,
+                        hintText: "Name",
                         validator: (valueKey) {
                           if (valueKey!.isEmpty) {
-                            return ("Enter your confirm mail");
+                            return ("Enter your name");
                           }
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .01,
+                      ),
+                      CostomTextField(
+                        controller: phoneController,
+                        hintText: "Phone",
+                        validator: (valueKey) {
+                          if (valueKey!.isEmpty) {
+                            return ("Enter your phone");
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .01,
+                      ),
+                      CostomTextField(
+                        controller: mailController,
+                        hintText: "Email",
+                        validator: (valueKey) {
+                          if (valueKey!.isEmpty) {
+                            return ("Enter your mail");
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .01,
                       ),
                       CostomTextField(
                         controller: passwordController,
@@ -101,8 +134,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .01,
                       ),
                       CostomTextField(
                         controller: confirmpasswordController,
@@ -131,18 +164,67 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .05,
                       ),
                       CostomButton(
-                        onTap: () {
+                        onTap: () async {
                           if (formkey.currentState!.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginPage(),
-                              ),
-                            );
+                            if (passwordController.text.length >= 6 &&
+                                confirmpasswordController.text.length >= 6) {
+                              if (passwordController.text ==
+                                  confirmpasswordController.text) {
+                                try {
+                                  await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                    email: mailController.text,
+                                    password: passwordController.text,
+                                  )
+                                      .then((value) {
+                                    FirebaseFirestore.instance
+                                        .collection('users')
+                                        .doc(mailController.text)
+                                        .set({
+                                      "name": nameController.text,
+                                      "phone": phoneController.text,
+                                      'email': mailController.text,
+                                      'password': passwordController.text,
+                                    });
+                                  });
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomePage(),
+                                    ),
+                                    (route) => false,
+                                  );
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        e.toString(),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      " Password are not mach ",
+                                    ),
+                                  ),
+                                );
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "Enter 6 digit and longer password",
+                                  ),
+                                ),
+                              );
+                            }
                           }
                         },
                         color: AllColors.primarycolor,

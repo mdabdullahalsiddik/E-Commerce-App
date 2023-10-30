@@ -1,7 +1,9 @@
 import 'package:ecommace/pages/Buttom%20Navigator%20Bar%20Page/bottom_navigator_bar_page%20.dart';
+import 'package:ecommace/pages/Home%20Page/home_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../widgets/costom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -120,15 +122,26 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       CostomButton(
-                        onTap: () {
+                        onTap: ()async {
                           if (formkey.currentState!.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const ButtomNavigatorBarPage(),
-                              ),
-                            );
+                            try {
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                    email: mailController.text,
+                                    password: passwordController.text,
+                                  )
+                                  .then(
+                                    (value) => Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const HomePage(),
+                                      ),
+                                      (route) => false,
+                                    ),
+                                  );
+                            } catch (e) {
+                              print(e);
+                            }
                           }
                         },
                         color: AllColors.primarycolor,

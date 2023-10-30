@@ -1,5 +1,7 @@
+import 'package:ecommace/pages/Buttom%20Navigator%20Bar%20Page/bottom_navigator_bar_page%20.dart';
 import 'package:ecommace/pages/Welcome%20Page/welcomepage.dart';
 import 'package:ecommace/statics/all_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -15,7 +17,9 @@ class _SplashPageState extends State<SplashPage> {
         .then((value) => Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const WelcomePage(),
+              builder: (context) => FirebaseAuth.instance.currentUser == null
+                  ? const WelcomePage()
+                  : const ButtomNavigatorBarPage(),
             ),
             (route) => false));
   }
