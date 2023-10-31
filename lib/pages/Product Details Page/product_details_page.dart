@@ -1,14 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ProductDetailsPage extends StatefulWidget {
-  Map<String, dynamic>? data;
+  QueryDocumentSnapshot<Map<String, dynamic>> data;
   ProductDetailsPage({
     super.key,
-    this.data,
+    required this.data,
   });
 
   @override
@@ -16,15 +18,23 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  List<String> sizeData = [
-    "10",
-    "20",
-    "30",
-    "32",
-    "36",
-    "40",
-  ];
   int seletIndex = 0;
+  String? seletSizes;
+  final user = FirebaseAuth.instance.currentUser;
+  Future seletSize() async {
+    setState(() {
+      seletSizes = widget.data["size"][0];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // TODO: implement initState
+
+    seletSize();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,14 +57,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: Image.network(
-                    widget.data!["image"],
+                    widget.data["image"] ?? "No Data Available ",
                     fit: BoxFit.cover,
                     height: MediaQuery.of(context).size.height * .3,
                   ),
                 ),
               ),
               Text(
-                widget.data!["title"],
+                widget.data["tittle"] ?? "No Data Available ",
                 textAlign: TextAlign.start,
                 style: const TextStyle(
                   color: Colors.black,
@@ -91,7 +101,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${widget.data!["price"]}",
+                    "\$${widget.data["price"] ?? "0"}",
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                       color: Colors.black,
@@ -120,7 +130,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ),
               Text(
-                "The upgraded S6 SiP runs up to 20 percent faster, allowing apps to also launch 20 percent faster, while maintaining the same all-day 18-hour battery life.",
+                widget.data["about"] ?? "No Data Found",
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   color: Colors.black.withOpacity(.5),
@@ -149,7 +159,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         shrinkWrap: true,
                         primary: false,
                         scrollDirection: Axis.horizontal,
-                        itemCount: sizeData.length,
+                        itemCount: widget.data["size"].length,
                         itemBuilder: (context, index) {
                           return SizedBox(
                             width: 64,
@@ -157,6 +167,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               onTap: () {
                                 setState(() {
                                   seletIndex = index;
+                                  seletSizes = widget.data["size"][index];
                                 });
                               },
                               child: Container(
@@ -174,7 +185,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 margin: const EdgeInsets.all(5),
                                 child: Center(
                                   child: Text(
-                                    sizeData[index],
+                                    widget.data["size"][index],
                                     style: TextStyle(
                                       color: seletIndex == index
                                           ? Colors.white
@@ -195,7 +206,23 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 height: MediaQuery.of(context).size.height * .03,
               ),
               CostomButton(
-                onTap: () {},
+                onTap: () async {
+                  await FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(user!.email)
+                      .collection("cart")
+                      .add({
+                    "id": widget.data["id"],
+                    "size": seletSizes,
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        "Save to cart",
+                      ),
+                    ),
+                  );
+                },
                 color: AllColors.primarycolor,
                 child: const Text(
                   "Add to cart",

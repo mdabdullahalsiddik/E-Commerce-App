@@ -16,13 +16,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<dynamic> bannerItem = [];
-
+  final user = FirebaseAuth.instance.currentUser;
+  String? name;
   Future firebaseBanaer() async {
     await FirebaseFirestore.instance.collection("banner").get().then(
       (value) {
         setState(
           () {
             bannerItem.addAll(value.docs);
+            FirebaseFirestore.instance
+                .collection("users")
+                .doc(user!.email)
+                .get()
+                .then((value) {
+              setState(() {
+                name = value.data()!["name"];
+              });
+            });
           },
         );
       },
@@ -71,7 +81,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -79,21 +89,21 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "Hello Folk ",
+                        name ?? "Hello User",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.waving_hand_outlined,
                         color: AllColors.primarycolor,
                       ),
                     ],
                   ),
-                  Text(
+                  const Text(
                     "Let’s start shopping!",
                     textAlign: TextAlign.start,
                     style: TextStyle(
@@ -114,8 +124,11 @@ class _HomePageState extends State<HomePage> {
                   itemCount: bannerItem.length,
                   itemBuilder: (context, index, realIndex) {
                     if (bannerItem.isEmpty) {
-                      return Center(child: CircularProgressIndicator(),);
-                    }return Container(
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
@@ -252,14 +265,15 @@ class _HomePageState extends State<HomePage> {
                         crossAxisSpacing: 5,
                       ),
                       itemBuilder: (context, index) {
+                        final data = snapshot.data!.docs[index];
                         return InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ProductDetailsPage(
-                                      //  data: snapshot.data!.docs[index].data(),
-                                      ),
+                                    data: data,
+                                  ),
                                 ));
                           },
                           child: Container(

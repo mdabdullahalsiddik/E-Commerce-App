@@ -175,12 +175,29 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (passwordController.text ==
                                   confirmpasswordController.text) {
                                 try {
-                                  await FirebaseAuth.instance
+                                   FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
                                     email: mailController.text,
                                     password: passwordController.text,
-                                  )
-                                      .then((value) {
+                                  );
+                                  final user = await FirebaseFirestore.instance
+                                      .collection("users")
+                                      .where("email",
+                                          isEqualTo: mailController.text)
+                                      .get();
+                                  if (user.docs.isNotEmpty) {
+                                    
+                                    FirebaseFirestore.instance
+                                        .collection('users')
+                                        .doc(mailController.text)
+                                        .update({
+                                      "name": nameController.text,
+                                      "phone": phoneController.text,
+                                      'email': mailController.text,
+                                      'password': passwordController.text,
+                                    });
+                                  } else {
+                                   
                                     FirebaseFirestore.instance
                                         .collection('users')
                                         .doc(mailController.text)
@@ -190,7 +207,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       'email': mailController.text,
                                       'password': passwordController.text,
                                     });
-                                  });
+                                  }
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
