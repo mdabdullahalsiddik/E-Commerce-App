@@ -23,14 +23,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   final user = FirebaseAuth.instance.currentUser;
   Future seletSize() async {
     setState(() {
-      seletSizes = widget.data["size"][0];
+      seletSizes = widget.data["size"] ? null : widget.data["size"][0];
     });
   }
 
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
 
     seletSize();
   }
@@ -212,9 +211,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       .doc(user!.email)
                       .collection("cart")
                       .add({
+                    "email": user!.email,
                     "id": widget.data["id"],
                     "size": seletSizes,
+                    "quanti": "1",
                   });
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text(

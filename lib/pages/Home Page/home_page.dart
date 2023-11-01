@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommace/pages/Category%20Page/category_page.dart';
 import 'package:ecommace/pages/Product%20Details%20Page/product_details_page.dart';
 import 'package:ecommace/pages/authentication/login_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
@@ -195,15 +196,27 @@ class _HomePageState extends State<HomePage> {
                               scrollDirection: Axis.horizontal,
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: (context, index) {
-                                return SizedBox(
-                                  width: MediaQuery.of(context).size.width * .2,
-                                  child: Container(
-                                    margin: const EdgeInsets.all(5),
-                                    color:
-                                        const Color(0xFFD8D3D3).withOpacity(.5),
-                                    child: Center(
-                                      child: Image.network(
-                                        snapshot.data!.docs[index]["icon"],
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => CategoryPage(
+                                            data: snapshot.data!.docs[index],
+                                          ),
+                                        ));
+                                  },
+                                  child: SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * .2,
+                                    child: Container(
+                                      margin: const EdgeInsets.all(5),
+                                      color: const Color(0xFFD8D3D3)
+                                          .withOpacity(.5),
+                                      child: Center(
+                                        child: Image.network(
+                                          snapshot.data!.docs[index]["icon"],
+                                        ),
                                       ),
                                     ),
                                   ),
