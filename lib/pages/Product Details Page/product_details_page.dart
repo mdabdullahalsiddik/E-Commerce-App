@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommace/pages/Cart%20Page/cart_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
@@ -23,7 +24,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   final user = FirebaseAuth.instance.currentUser;
   Future seletSize() async {
     setState(() {
-      seletSizes = widget.data["size"] ? null : widget.data["size"][0];
+      seletSizes = widget.data["size"] == null ? null : widget.data["size"][0];
     });
   }
 
@@ -210,12 +211,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       .collection("users")
                       .doc(user!.email)
                       .collection("cart")
-                      .add({
-                    "email": user!.email,
-                    "id": widget.data["id"],
-                    "size": seletSizes,
-                    "quanti": "1",
-                  });
+                      .add(
+                    {
+                      "id": widget.data["id"],
+                      "size": seletSizes,
+                      "quanti":1,
+                    },
+                  );
                   // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

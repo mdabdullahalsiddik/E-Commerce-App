@@ -18,9 +18,9 @@ class _ButtomNavigatorBarPageState extends State<ButtomNavigatorBarPage> {
 
   List<Widget> pages = [
     const HomePage(),
+    const FavoritePage(),
     const CartPage(),
     const HomePage(),
-    const FavoritePage(),
   ];
 
   @override
