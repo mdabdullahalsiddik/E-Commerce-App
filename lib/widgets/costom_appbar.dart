@@ -6,7 +6,7 @@ PreferredSizeWidget? costomAppbar({
   void Function()? onTap,
   List<Widget>? actions,
   Color? color,
- required BuildContext context,
+  required BuildContext context,
 }) {
   return AppBar(
     elevation: 0,

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommace/pages/Buttom%20Navigator%20Bar%20Page/bottom_navigator_bar_page%20.dart';
 import 'package:ecommace/pages/Home%20Page/home_page.dart';
 import 'package:ecommace/pages/authentication/login_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
@@ -29,9 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: costomAppbar(
-        context: context,
-      ),
+     
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -175,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (passwordController.text ==
                                   confirmpasswordController.text) {
                                 try {
-                                   FirebaseAuth.instance
+                                  FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
                                     email: mailController.text,
                                     password: passwordController.text,
@@ -186,7 +185,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                           isEqualTo: mailController.text)
                                       .get();
                                   if (user.docs.isNotEmpty) {
-                                    
                                     FirebaseFirestore.instance
                                         .collection('users')
                                         .doc(mailController.text)
@@ -197,7 +195,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                       'password': passwordController.text,
                                     });
                                   } else {
-                                   
                                     FirebaseFirestore.instance
                                         .collection('users')
                                         .doc(mailController.text)
@@ -211,7 +208,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const HomePage(),
+                                      builder: (context) =>
+                                          ButtomNavigatorBarPage(),
                                     ),
                                     (route) => false,
                                   );

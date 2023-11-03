@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommace/pages/Product%20Details%20Page/product_details_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommace/widgets/costom_appbar.dart';
@@ -80,10 +81,42 @@ class _CategoryPageState extends State<CategoryPage> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () async {
+                                    await FirebaseFirestore.instance
+                                        .collection("users")
+                                        .doc(FirebaseAuth
+                                            .instance.currentUser!.email)
+                                        .collection("favorite")
+                                        .add(
+                                      {
+                                        "id": snapshot.data!.docs[index]["id"],
+                                        "cate_id": snapshot.data!.docs[index]
+                                            ["cate_id"],
+                                        "about": snapshot.data!.docs[index]
+                                            ["about"],
+                                        "image": snapshot.data!.docs[index]
+                                            ["image"],
+                                        "tittle": snapshot.data!.docs[index]
+                                            ["tittle"],
+                                        "price": snapshot.data!.docs[index]
+                                            ["price"],
+                                        "quanti": snapshot.data!.docs[index]
+                                            ["quanti"],
+                                        "size": snapshot.data!.docs[index]
+                                            ["size"],
+                                      },
+                                    ); // ignore: use_build_context_synchronously
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Save to favorite",
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   child: const Icon(
                                     Icons.favorite_border_sharp,
-                                    size: 14,
+                                    size: 20,
                                   ),
                                 )
                               ],

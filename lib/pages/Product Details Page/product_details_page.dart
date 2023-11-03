@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommace/pages/Cart%20Page/cart_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
@@ -40,6 +39,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: costomAppbar(
+        onTap: () {
+          Navigator.pop(context);
+        },
         color: Colors.transparent,
         context: context,
       ),
@@ -185,7 +187,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 margin: const EdgeInsets.all(5),
                                 child: Center(
                                   child: Text(
-                                    widget.data["size"][index],
+                                    widget.data["size"][index] ,
                                     style: TextStyle(
                                       color: seletIndex == index
                                           ? Colors.white
@@ -215,7 +217,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     {
                       "id": widget.data["id"],
                       "size": seletSizes,
-                      "quanti":1,
+                      "quanti": 1,
+                      "price": widget.data["price"],
                     },
                   );
                   // ignore: use_build_context_synchronously

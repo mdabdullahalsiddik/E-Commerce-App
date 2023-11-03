@@ -13,11 +13,11 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   Future welcome() async {
-    Future.delayed(const Duration(seconds: 3))
+   await Future.delayed(const Duration(seconds: 3))
         .then((value) => Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => FirebaseAuth.instance.currentUser == null
+              builder: (context) =>  FirebaseAuth.instance.currentUser == null
                   ? const WelcomePage()
                   : const ButtomNavigatorBarPage(),
             ),

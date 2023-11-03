@@ -29,11 +29,13 @@ class _HomePageState extends State<HomePage> {
                 .collection("users")
                 .doc(user!.email)
                 .get()
-                .then((value) {
-              setState(() {
-                name = value.data()!["name"];
-              });
-            });
+                .then(
+              (value) {
+                setState(() {
+                  name = value.data()!["name"];
+                });
+              },
+            );
           },
         );
       },
@@ -49,32 +51,45 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: costomAppbar(
-        leading: const Icon(
-          Icons.menu,
-          color: Colors.black,
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: const Text("Logout"),
+              leading: IconButton(
+                onPressed: () {
+                  setState(() {
+                    FirebaseAuth.instance.signOut();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const LoginPage(),
+                      ),
+                      (route) => false,
+                    );
+                  });
+                },
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.black,
+                ),
+              ),
+            )
+          ],
         ),
+      ),
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.black),
+        elevation: 0,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () {
-              setState(() {
-                FirebaseAuth.instance.signOut();
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const LoginPage(),
-                  ),
-                  (route) => false,
-                );
-              });
-            },
+            onPressed: () {},
             icon: const Icon(
-              Icons.logout,
-              color: Colors.black,
+              Icons.search,
             ),
-          )
+          ),
         ],
-        context: context,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -300,10 +315,43 @@ class _HomePageState extends State<HomePage> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () async {
+                                          await FirebaseFirestore.instance
+                                              .collection("users")
+                                              .doc(user!.email)
+                                              .collection("favorite")
+                                              .add(
+                                            {
+                                              "id": snapshot.data!.docs[index]
+                                                  ["id"],
+                                              "cate_id": snapshot
+                                                  .data!.docs[index]["cate_id"],
+                                              "about": snapshot
+                                                  .data!.docs[index]["about"],
+                                              "image": snapshot
+                                                  .data!.docs[index]["image"],
+                                              "tittle": snapshot
+                                                  .data!.docs[index]["tittle"],
+                                              "price": snapshot
+                                                  .data!.docs[index]["price"],
+                                              "quanti": snapshot
+                                                  .data!.docs[index]["quanti"],
+                                              "size": snapshot.data!.docs[index]
+                                                  ["size"],
+                                            },
+                                          ); // ignore: use_build_context_synchronously
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "Save to favorite",
+                                              ),
+                                            ),
+                                          );
+                                        },
                                         child: const Icon(
                                           Icons.favorite_border_sharp,
-                                          size: 14,
+                                          size: 20,
                                         ),
                                       )
                                     ],

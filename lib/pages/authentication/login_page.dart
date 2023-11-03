@@ -1,3 +1,4 @@
+import 'package:ecommace/pages/Buttom%20Navigator%20Bar%20Page/bottom_navigator_bar_page%20.dart';
 import 'package:ecommace/pages/Home%20Page/home_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
 import 'package:ecommace/widgets/costom_appbar.dart';
@@ -23,9 +24,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: costomAppbar(
-        context: context,
-      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -133,7 +131,8 @@ class _LoginPageState extends State<LoginPage> {
                                     (value) => Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const HomePage(),
+                                        builder: (context) =>
+                                            const ButtomNavigatorBarPage(),
                                       ),
                                       (route) => false,
                                     ),
