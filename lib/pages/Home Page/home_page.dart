@@ -4,7 +4,6 @@ import 'package:ecommace/pages/Category%20Page/category_page.dart';
 import 'package:ecommace/pages/Product%20Details%20Page/product_details_page.dart';
 import 'package:ecommace/pages/authentication/login_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
-import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
