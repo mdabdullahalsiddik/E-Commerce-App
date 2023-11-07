@@ -1,7 +1,5 @@
 import 'package:ecommace/pages/Buttom%20Navigator%20Bar%20Page/bottom_navigator_bar_page%20.dart';
-import 'package:ecommace/pages/Home%20Page/home_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
-import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

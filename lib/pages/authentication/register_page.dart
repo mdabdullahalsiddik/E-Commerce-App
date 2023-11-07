@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommace/pages/Buttom%20Navigator%20Bar%20Page/bottom_navigator_bar_page%20.dart';
-import 'package:ecommace/pages/Home%20Page/home_page.dart';
 import 'package:ecommace/pages/authentication/login_page.dart';
 import 'package:ecommace/statics/all_colors.dart';
-import 'package:ecommace/widgets/costom_appbar.dart';
 import 'package:ecommace/widgets/costom_button.dart';
 import 'package:ecommace/widgets/costom_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +28,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -205,15 +202,17 @@ class _RegisterPageState extends State<RegisterPage> {
                                       'password': passwordController.text,
                                     });
                                   }
+                                  // ignore: use_build_context_synchronously
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          ButtomNavigatorBarPage(),
+                                          const ButtomNavigatorBarPage(),
                                     ),
                                     (route) => false,
                                   );
                                 } catch (e) {
+                                  // ignore: use_build_context_synchronously
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
