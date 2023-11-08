@@ -50,32 +50,62 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: const Text("Logout"),
-              leading: IconButton(
-                onPressed: () {
-                  setState(() {
-                    FirebaseAuth.instance.signOut();
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const LoginPage(),
+      drawer: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("users")
+            .doc(FirebaseAuth.instance.currentUser!.email)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Drawer(
+              child: DrawerHeader(
+                child: ListView(
+                  children: [
+                    UserAccountsDrawerHeader(
+                      accountName: Text(
+                        snapshot.data!["name"].toString(),
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
                       ),
-                      (route) => false,
-                    );
-                  });
-                },
-                icon: const Icon(
-                  Icons.logout,
-                  color: Colors.black,
+                      accountEmail: Text(
+                        snapshot.data!["email"].toString(),
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      title: const Text("Logout"),
+                      leading: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            FirebaseAuth.instance.signOut();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const LoginPage(),
+                              ),
+                              (route) => false,
+                            );
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.logout,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            )
-          ],
-        ),
+            );
+          }
+        },
       ),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
@@ -339,6 +369,7 @@ class _HomePageState extends State<HomePage> {
                                                   ["size"],
                                             },
                                           ); // ignore: use_build_context_synchronously
+                                          // ignore: use_build_context_synchronously
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             const SnackBar(
